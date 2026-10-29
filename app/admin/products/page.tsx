@@ -30,7 +30,8 @@ export default function ProductsPage() {
 
   async function createProduct(event: FormEvent<HTMLFormElement>) {
     event.preventDefault(); setSaving(true); setError(""); setMessage("");
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const payload = Object.fromEntries(form.entries());
     payload.sellingPrice = String(payload.sellingPrice || "0");
     payload.purchasePrice = String(payload.purchasePrice || "0");
@@ -40,7 +41,7 @@ export default function ProductsPage() {
       const res = await fetch("/api/admin/products", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Could not create product.");
-      event.currentTarget.reset();
+      formElement.reset();
       setMessage("Product created successfully.");
       await load();
     } catch (e) { setError(e instanceof Error ? e.message : "Could not create product."); }
