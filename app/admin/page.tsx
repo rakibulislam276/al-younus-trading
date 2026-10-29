@@ -1,20 +1,30 @@
 import LogoutButton from "./logout-button";
 
+const modules = [
+  { title: "Products & inventory", detail: "Catalogue records, prices, stock quantities and low-stock warnings.", href: "/admin/products", label: "Open products" },
+  { title: "Categories", detail: "Create and review product categories.", href: "/admin/categories", label: "Open categories" },
+  { title: "Customer CRM", detail: "Record enquiries, contact details and follow-up dates.", href: "/admin/leads", label: "Open leads" },
+  { title: "Orders & sales", detail: "Review order records and payment/status information.", href: "/admin/orders", label: "Open orders" }
+];
+
 export default function AdminDashboard() {
   return <main className="admin-shell">
     <div className="admin-header">
-      <div><div className="eyebrow">AL YOUNUS · ADMIN</div><h1>Business dashboard</h1><p className="muted">Secure admin area foundation. Live metrics will appear after the database is connected and business records are added.</p></div>
+      <div><div className="eyebrow">AL YOUNUS · ADMIN</div><h1>Business dashboard</h1><p className="muted">Manage the core business modules from one place. Live records require the PostgreSQL database to be configured.</p></div>
       <div style={{display:"flex",gap:10,flexWrap:"wrap"}}><a className="button" href="/">View storefront</a><LogoutButton /></div>
     </div>
-    <section className="stats">
-      <div className="stat">Product catalogue<strong>→</strong><span className="muted">Create and manage product records</span><p><a href="/admin/products">Open product management ↗</a></p></div>
-      <div className="stat">Customer CRM<strong>Next</strong><span className="muted">Leads, follow-ups and customer history</span></div>
-      <div className="stat">Orders & reports<strong>Next</strong><span className="muted">Order processing and sales reporting</span></div>
+    <section className="grid" style={{gridTemplateColumns:"repeat(auto-fit,minmax(230px,1fr))"}}>
+      {modules.map(module=><article className="card" key={module.href}><div className="eyebrow">ADMIN MODULE</div><h3>{module.title}</h3><p>{module.detail}</p><a className="button" href={module.href}>{module.label} ↗</a></article>)}
     </section>
-    <section className="card">
-      <h2>Setup status</h2>
-      <p className="muted">Authentication routes, protected admin pages, product API routes and the PostgreSQL data model have been added to the repository. To activate login, configure a private local .env file, provision PostgreSQL, run the Prisma setup and create the first administrator using the documented seed command.</p>
-      <p><a className="button" href="/admin/products">Open product management</a></p>
+    <section className="card" style={{marginTop:28}}>
+      <h2>Activation checklist</h2>
+      <ol style={{lineHeight:1.9,color:"#53666b"}}>
+        <li>Create a PostgreSQL database and add its connection string to a private local <code>.env</code> file.</li>
+        <li>Set a unique <code>AUTH_SECRET</code> and administrator credentials in that private file.</li>
+        <li>Run the Prisma setup and seed the first admin account using the README instructions.</li>
+        <li>Test authentication, product creation and database-backed pages locally before deploying.</li>
+      </ol>
+      <p className="muted">Do not commit or share your .env file, database password or admin password.</p>
     </section>
   </main>;
 }
