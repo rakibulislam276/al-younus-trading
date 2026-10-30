@@ -35,15 +35,15 @@ A Next.js storefront and admin-system foundation for hygiene, cleaning and sanit
 - Authenticated product list/create/update/delete API endpoints.
 - Admin product management screen for creating/listing products and deleting products.
 - Admin category screen for creating/listing categories.
-- Admin CRM screen for recording and listing leads with customer contact details and follow-up dates.
-- Admin order reporting screen for listing stored orders.
-- Authenticated category and lead APIs, plus an order listing API.
+- Admin CRM screen for recording and listing leads with customer contact details, editable pipeline status and follow-up dates.
+- Admin order screen for listing stored orders and updating fulfilment/payment statuses.
+- Authenticated category and lead APIs, lead update API, order listing and status update APIs.
 - Responsive styling for the product form.
 
 ## Still to finish before production
 
 - Configure a real PostgreSQL service and verify schema generation/migration against it.
-- Complete product edit UX, image storage integration, category edit/delete, lead status updates and reminder delivery, order creation/status changes, sales reports, site settings and audit-log writes.
+- Product image storage integration, richer category edit/delete controls, automated follow-up reminder delivery, order creation from the storefront, sales reports, site settings and audit-log writes.
 - Add rate limiting, CSRF review for mutations, account recovery, session revocation, tests, monitoring and backups.
 - Run a full production build and security review.
 - Configure hosting, domain, HTTPS and production environment variables.
